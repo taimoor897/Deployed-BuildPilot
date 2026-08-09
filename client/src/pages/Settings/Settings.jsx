@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import Swal from "sweetalert2";
+import api from "../services/api";
 
 
 export default function SettingsPage(){
@@ -8,30 +9,17 @@ export default function SettingsPage(){
   const [whatsapp,setWhatsapp] = useState(null);
 
 
-  const loadWhatsApp = async()=>{
+  const loadWhatsApp = async () => {
+  try {
+    const { data } = await api.get("/whatsapp/status");
 
-    try{
+    console.log("WHATSAPP STATUS:", data);
 
-      const res = await fetch(
-        `${API}/api/whatsapp/status`
-      );
-
-
-      const data = await res.json();
-
-      setWhatsapp(data);
-
-
-    }catch(error){
-
-      console.log(
-        "WhatsApp status error",
-        error
-      );
-
-    }
-
-  };
+    setWhatsapp(data);
+  } catch (error) {
+    console.error("WhatsApp status error:", error);
+  }
+};
 
 
 
@@ -70,16 +58,9 @@ const disconnectWhatsApp = async () => {
   }
 
   try {
-    const res = await fetch(
-      `${API}/api/whatsapp/reset`,
-      {
-        method: "POST",
-      }
-    );
+    const { data } = await api.post("/whatsapp/reset");
 
-    const data = await res.json();
-
-    if (!res.ok) {
+    if (!data.success) {
       Swal.fire({
         icon: "error",
         title: "Disconnect Failed",
@@ -110,7 +91,9 @@ const disconnectWhatsApp = async () => {
     Swal.fire({
       icon: "error",
       title: "Error",
-      text: "Failed to disconnect WhatsApp.",
+      text:
+        error.response?.data?.message ||
+        "Failed to disconnect WhatsApp.",
     });
   }
 };
