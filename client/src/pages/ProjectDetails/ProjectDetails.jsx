@@ -82,7 +82,7 @@ setMilestones(data.project.milestones || []);
 
 
     const response = await fetch(
-      "http://localhost:5000/api/upload/project-image",
+      `${import.meta.env.VITE_API_URL}/api/upload/project-image`,
       {
         method:"POST",
         body:formData,
@@ -94,7 +94,7 @@ setMilestones(data.project.milestones || []);
 
 
    await fetch(
-  `http://localhost:5000/api/projects/${id}/photos`,
+  `${import.meta.env.VITE_API_URL}/api/projects/${id}/photos`,
   {
     method:"POST",
     headers:{
@@ -142,7 +142,7 @@ const handleDeletePhoto = async (photoUrl) => {
 
   try {
     await fetch(
-      `http://localhost:5000/api/projects/${id}/photos`,
+      `${import.meta.env.VITE_API_URL}/api/projects/${id}/photos`,
       {
         method: "DELETE",
         headers: {
@@ -194,7 +194,7 @@ const addMilestone = async () => {
   try {
 
     const response = await fetch(
-      `http://localhost:5000/api/projects/${id}/milestones`,
+      `${import.meta.env.VITE_API_URL}/api/projects/${id}/milestones`,
       {
         method: "POST",
 
@@ -250,7 +250,7 @@ const addMilestone = async () => {
 const completeMilestone = async (milestoneId) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/api/projects/${id}/milestones/${milestoneId}/complete`,
+      `${import.meta.env.VITE_API_URL}/api/projects/${id}/milestones/${milestoneId}/complete`,
       {
         method: "PUT",
         headers: {
@@ -315,7 +315,7 @@ const handleDeleteMilestone = async (milestoneId) => {
   try {
 
     const response = await fetch(
-      `http://localhost:5000/api/projects/${id}/milestones/${milestoneId}`,
+      `${import.meta.env.VITE_API_URL}/api/projects/${id}/milestones/${milestoneId}`,
       {
         method: "DELETE",
         headers: {
