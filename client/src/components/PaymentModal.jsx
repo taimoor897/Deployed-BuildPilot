@@ -89,7 +89,7 @@ export default function PaymentModal({
 // Save worker invoice for ROI calculation
 
 await fetch(
-  "http://localhost:5000/api/worker-invoices",
+  `${import.meta.env.VITE_API_URL}/api/worker-invoices`,
   {
     method: "POST",
 
