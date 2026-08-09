@@ -13,7 +13,7 @@ export default function SettingsPage(){
     try{
 
       const res = await fetch(
-        "http://localhost:5000/api/whatsapp/status"
+        `${API}/api/whatsapp/status`
       );
 
 
@@ -71,7 +71,7 @@ const disconnectWhatsApp = async () => {
 
   try {
     const res = await fetch(
-      "http://localhost:5000/api/whatsapp/reset",
+      `${API}/api/whatsapp/reset`,
       {
         method: "POST",
       }
